@@ -8,12 +8,12 @@ import { color } from 'react-native-reanimated';
 
 export default function Login({navigation}) {
     const [data, setData] = useState({
-        email: '',
+        username: '',
         password:'',
     });
 
     const handleLogin = () => {
-        if (data.email.length == '' || data.password.length == '') {
+        if (data.username.length == '' || data.password.length == '') {
             showMessage({
                 type:'danger',
                 backgroundColor:colors.danger,
@@ -23,7 +23,7 @@ export default function Login({navigation}) {
                 style:{borderBottomRightRadius:10, borderBottomLeftRadius:10,},
                 textStyle:{fontFamily:fonts.primary[600]}
             });
-        } else if (data.email.length == '') {
+        } else if (data.username.length == '') {
             showMessage({
                 type:'danger',
                 backgroundColor:colors.danger,
@@ -108,10 +108,21 @@ export default function Login({navigation}) {
             <View style={{
                 padding:10
             }}>
-                <MyInput label="Username" placeholder="Masukan Username"/>
-                <MyInput label="Kata Sandi" placeholder="Masukan Password" secureTextEntry={true}/>
+                <MyInput
+                 label="Username" 
+                 placeholder="Masukan Username"
+                value={data.username}
+                onChangeText={(x) => setData({...data, 'username' : x})}
+                 />
+                <MyInput
+                 label="Kata Sandi" 
+                 placeholder="Masukan Password"
+                  secureTextEntry={true}
+                  value={data.password}
+                  onChangeText={(x) => setData({...data, 'password' : x})}
+                  />
 
-                <TouchableNativeFeedback>
+                <TouchableNativeFeedback onPress={handleLogin}>
                     <View style={{
                         padding:10,
                         backgroundColor:colors.primary,

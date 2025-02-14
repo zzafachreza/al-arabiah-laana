@@ -10,17 +10,16 @@ import { Image } from 'react-native'
 export default function Register({navigation}) {
 
     const [data, setData] = useState({
-        nama:'',
-        email:'',
-        telepon:'',
-        alamat:'',
+        nama_lengkap:'',
+        username:'',
         password:'',
+        repassword :'',
 
 
     });
 
     const handleRegister = () => {
-        if (data.nama.length == '' || data.email.length == '' || data.telepon.length == '' || data.alamat.length == '' || data.password.length == '') { 
+        if (data.nama_lengkap.length == '' || data.username.length == '' ||  data.password.length == '') { 
             showMessage({
                 type:'danger',
                 backgroundColor:colors.danger,
@@ -30,7 +29,7 @@ export default function Register({navigation}) {
                 style:{borderBottomRightRadius:10, borderBottomLeftRadius:10,},
                 textStyle:{fontFamily:fonts.primary[600]}
             })
-        } else if (data.nama.length === '') {
+        } else if (data.nama_lengkap.length === '') {
             showMessage({
                 type:'danger',
                 backgroundColor:colors.danger,
@@ -40,32 +39,12 @@ export default function Register({navigation}) {
                 style:{borderBottomRightRadius:10, borderBottomLeftRadius:10,},
                 textStyle:{fontFamily:fonts.primary[600]}
         });
-     } else if (data.email.length === '') {
+     } else if (data.username.length === '') {
         showMessage({
             type:'danger',
             backgroundColor:colors.danger,
             color:colors.white,
             message:'Email Harus Diisi!',
-            position:'top',
-            style:{borderBottomRightRadius:10, borderBottomLeftRadius:10,},
-            textStyle:{fontFamily:fonts.primary[600]}
-        });
-     } else if (data.telepon.length === '') {
-        showMessage({
-            type:'danger',
-            backgroundColor:colors.danger,
-            color:colors.white,
-            message:'Telepon Harus Diisi!',
-            position:'top',
-            style:{borderBottomRightRadius:10, borderBottomLeftRadius:10,},
-            textStyle:{fontFamily:fonts.primary[600]}
-        });
-     } else if (data.alamat.length === '') {
-        showMessage({
-            type:'danger',
-            backgroundColor:colors.danger,
-            color:colors.white,
-            message:'Alamat Harus Diisi!',
             position:'top',
             style:{borderBottomRightRadius:10, borderBottomLeftRadius:10,},
             textStyle:{fontFamily:fonts.primary[600]}
@@ -76,6 +55,16 @@ export default function Register({navigation}) {
             backgroundColor:colors.danger,
             color:colors.white,
             message:'Password Harus Diisi!',
+            position:'top',
+            style:{borderBottomRightRadius:10, borderBottomLeftRadius:10,},
+            textStyle:{fontFamily:fonts.primary[600]}
+        });
+     } else if (data.password != data.repassword ) {
+        showMessage({
+            type:'danger',
+            backgroundColor:colors.danger,
+            color:colors.white,
+            message:'Password Tidak Sama!',
             position:'top',
             style:{borderBottomRightRadius:10, borderBottomLeftRadius:10,},
             textStyle:{fontFamily:fonts.primary[600]}
@@ -142,12 +131,33 @@ export default function Register({navigation}) {
             padding:10
         }}>
 
-        <MyInput label="Nama Lengkap" placeholder="Isi Nama Lengkap"/>
-        <MyInput label="Username" placeholder="Isi Username"/>
-        <MyInput label="Kata Sandi" placeholder="Isi Kata Sandi" secureTextEntry={true}/>
-        <MyInput label="Konfirmasi Kata Sandi" placeholder="Konfirmasi Kata Sandi" secureTextEntry={true}/>
+        <MyInput 
+        label="Nama Lengkap" 
+        placeholder="Isi Nama Lengkap"
+        value={data.nama_lengkap}
+        onChangeText={(x) => setData({...data,'nama_lengkap' : x})}
+        />
+        <MyInput 
+        label="Username" 
+        placeholder="Isi Username"
+        value={data.username}
+        onChangeText={(x) => setData({...data,'username' : x})}
+        />
+        <MyInput label="Kata Sandi" 
+        placeholder="Isi Kata Sandi" 
+        secureTextEntry={true}
+        value={data.password}
+        onChangeText={(x) => setData({...data,'password' : x})}
+        />
+        <MyInput 
+        label="Konfirmasi Kata Sandi" 
+        placeholder="Konfirmasi Kata Sandi" 
+        secureTextEntry={true}
+        value={data.repassword}
+        onChangeText={(x) => setData({...data,'repassword' : x})}
+        />
 
-        <TouchableNativeFeedback>
+        <TouchableNativeFeedback onPress={handleRegister}>
             <View style={{
                 padding:10,
                 backgroundColor:colors.primary,
