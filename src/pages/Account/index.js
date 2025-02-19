@@ -73,13 +73,13 @@ export default function ({ navigation, route }) {
     const MyList = ({ label, value }) => {
         return (
             <View style={{
-                marginTop:10
+                marginTop: 10
             }}>
-                 <Text
+                <Text
                     style={{
-                       fontFamily:fonts.primary[600],
-                       color:colors.primary,
-                       marginLeft:10
+                        fontFamily: fonts.primary[600],
+                        color: colors.primary,
+                        marginLeft: 10
 
                     }}>
                     {label}
@@ -87,25 +87,25 @@ export default function ({ navigation, route }) {
 
 
                 <View
-                style={{
-                    marginVertical: 2,
-                    padding: 5,
-                    paddingHorizontal: 10,
-                    backgroundColor: Color.blueGray[50],
-                    borderRadius: 30,
-                    height:40
-                }}>
-               
-                <Text
                     style={{
-                        ...fonts.body3,
-                        color: Color.blueGray[900],
+                        marginVertical: 2,
+                        padding: 5,
+                        paddingHorizontal: 10,
+                        backgroundColor: Color.blueGray[50],
+                        borderRadius: 30,
+                        height: 40
                     }}>
-                    {value}
-                </Text>
+
+                    <Text
+                        style={{
+                            ...fonts.body3,
+                            color: Color.blueGray[900],
+                        }}>
+                        {value}
+                    </Text>
+                </View>
             </View>
-            </View>
-          
+
         )
     }
     return (
@@ -134,43 +134,13 @@ export default function ({ navigation, route }) {
                             justifyContent: 'center',
                             alignItems: 'center'
                         }}>
-                            
+
                         </View>
                         <View style={{ padding: 10, }}>
-                            <MyList label="Nama Lengkap :" value={'Angga Kurniawan'} />
-                            <MyList label="Email :" value={'anggakurniawan12@gmail.com'} />
-                            <MyList label="Telepon :" value={'0865665467467'} />
-                            <MyList label="Alamat Lengkap :" value={'Depok, Jawa Barat'} />
-                            <View style={{
-                                padding:10,
-                                marginTop:10,
+                            <MyList label="Nama Lengkap :" value={user.nama_lengkap} />
+                            <MyList label="Username :" value={user.username} />
 
-                            }}>
 
-                            <Text style={{
-                                fontFamily  :fonts.primary[600],
-                                color:colors.primary
-                            }}>
-                            Foto Tanda Tangan : 
-                            </Text>
-
-                            <View style={{
-                                padding:10,
-                                marginTop:10,
-                                backgroundColor:Color.blueGray[50],
-                                borderRadius:30
-                            }}>
-
-                            <Image style={{
-                                width:127,
-                                height:120,
-                                alignSelf:'center'
-                            }} source={require('../../assets/ttd_dummmy.png')}/>
-
-                            </View>
-
-                            </View>
-                           
                         </View>
                         {/* data detail */}
                     </View>
@@ -179,9 +149,9 @@ export default function ({ navigation, route }) {
                 <View style={{
                     padding: 20,
                 }}>
-                    <MyButton warna={colors.primary} title="Edit Profile"  onPress={() => navigation.navigate('AccountEdit', user)} />
+                    <MyButton warna={colors.primary} title="Edit Profile" onPress={() => navigation.navigate('AccountEdit', user)} />
                     <MyGap jarak={10} />
-                    <MyButton onPress={btnKeluar} warna={Color.blueGray[400]} title="Log Out"  iconColor={colors.white} colorText={colors.white} />
+                    <MyButton onPress={btnKeluar} warna={Color.blueGray[400]} title="Log Out" iconColor={colors.white} colorText={colors.white} />
                 </View>
             </ScrollView>
         </SafeAreaView >

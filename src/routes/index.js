@@ -72,6 +72,7 @@ import {
   IsiMateri,
   Evaluasi,
   EvaluasiAdd,
+  Jawaban,
 
 
 
@@ -100,10 +101,18 @@ const MainApp = () => {
 
 export default function Router() {
   return (
-    <Stack.Navigator initialRouteName='MainApp'>
+    <Stack.Navigator initialRouteName='Splash'>
       <Stack.Screen
         name="Splash"
         component={Splash}
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="Jawaban"
+        component={Jawaban}
         options={{
           headerShown: false,
         }}
@@ -123,7 +132,7 @@ export default function Router() {
       />
 
 
-<Stack.Screen
+      <Stack.Screen
         name="Materi"
         component={Materi}
         options={{
@@ -132,7 +141,7 @@ export default function Router() {
         }}
       />
 
-<Stack.Screen
+      <Stack.Screen
         name="IsiMateri"
         component={IsiMateri}
         options={{
@@ -142,7 +151,7 @@ export default function Router() {
       />
 
 
-<Stack.Screen
+      <Stack.Screen
         name="VideoPembelajaran"
         component={VideoPembelajaran}
         options={{
@@ -151,7 +160,7 @@ export default function Router() {
         }}
       />
 
-<Stack.Screen
+      <Stack.Screen
         name="Evaluasi"
         component={Evaluasi}
         options={{
@@ -160,8 +169,8 @@ export default function Router() {
         }}
       />
 
-      
-<Stack.Screen
+
+      <Stack.Screen
         name="EvaluasiAdd"
         component={EvaluasiAdd}
         options={{
@@ -170,7 +179,7 @@ export default function Router() {
         }}
       />
 
-<Stack.Screen
+      <Stack.Screen
         name="HasilBuatPenawaran"
         component={HasilBuatPenawaran}
         options={{
@@ -179,7 +188,7 @@ export default function Router() {
         }}
       />
 
-<Stack.Screen
+      <Stack.Screen
         name="Login"
         component={Login}
         options={{
@@ -188,7 +197,7 @@ export default function Router() {
         }}
       />
 
-<Stack.Screen
+      <Stack.Screen
         name="CheckHargaStock"
         component={CheckHargaStock}
         options={{
@@ -197,7 +206,7 @@ export default function Router() {
         }}
       />
 
-<Stack.Screen
+      <Stack.Screen
         name="Register"
         component={Register}
         options={{
@@ -217,7 +226,7 @@ export default function Router() {
       />
 
 
-<Stack.Screen
+      <Stack.Screen
         name="Petunjuk"
         component={Petunjuk}
         options={{

@@ -13,9 +13,10 @@ import axios from 'axios';
 import { FloatingAction } from "react-native-floating-action";
 import 'intl';
 import 'intl/locale-data/jsonp/en';
+import moment from 'moment';
 
-export default function Kegiatan({ navigation }) {
-
+export default function Jawaban({ navigation, route }) {
+    const ITEM = route.params;
     const isFocused = useIsFocused();
 
     const [data, setData] = useState([]);
@@ -31,7 +32,9 @@ export default function Kegiatan({ navigation }) {
 
 
     const getTransaction = () => {
-        axios.post(apiURL + 'materi').then(res => {
+        axios.post(apiURL + 'jawaban_detail', {
+            kode: route.params.kode
+        }).then(res => {
             console.log(res.data);
             setData(res.data);
         })
@@ -41,39 +44,39 @@ export default function Kegiatan({ navigation }) {
     const __renderItem = ({ item }) => {
 
         return (
-            <TouchableWithoutFeedback onPress={() => navigation.navigate('IsiMateri', item)}>
+
+            <View style={{
+                marginHorizontal: 10,
+                borderBottomWidth: 1,
+                paddingVertical: 5,
+                borderBottomColor: colors.white,
+                backgroundColor: colors.white,
+                padding: 10,
+                borderRadius: 10,
+                marginVertical: 10,
+                flexDirection: 'row',
+                alignItems: 'center'
+            }}>
                 <View style={{
-                    marginHorizontal: 10,
-                    borderBottomWidth: 1,
-                    paddingVertical: 5,
-                    borderBottomColor: colors.white,
-                    backgroundColor: colors.white,
-                    padding: 10,
-                    borderRadius: 10,
-                    marginVertical: 10,
-                    flexDirection: 'row',
-                    alignItems: 'center'
+                    flex: 1,
                 }}>
-                    <View style={{
-                        flex: 1,
-                    }}>
-                        <Text style={{
-                            fontFamily: fonts.secondary[600],
-                            fontSize: windowWidth / 20
-                        }}>{item.judul}</Text>
-                    </View>
-
-                    <View style={{
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
-
-                        <Icon type='ionicon' name='chevron-forward-circle-outline' size={40} color={colors.primary} />
-
-                    </View>
-
+                    <Text style={{
+                        fontFamily: fonts.secondary[600],
+                        fontSize: windowWidth / 20
+                    }}>{item.soal}</Text>
+                    <Text style={{
+                        marginTop: 10,
+                        fontFamily: fonts.secondary[400],
+                        fontSize: windowWidth / 25,
+                    }}>Jawaban : <Text style={{
+                        color: colors.primary
+                    }}>{item.jawaban}</Text></Text>
                 </View>
-            </TouchableWithoutFeedback>
+
+
+
+            </View>
+
         )
 
     }
@@ -84,7 +87,12 @@ export default function Kegiatan({ navigation }) {
             backgroundColor: colors.border,
 
         }}>
-            <MyHeader title="Materi" />
+            <MyHeader title="Jawaban" />
+            <Text style={{
+                padding: 10,
+                fontFamily: fonts.secondary[600],
+                fontSize: 18,
+            }}>Tanggal : {moment(ITEM.tanggal).format('DD MMMM YYYY')}{'\n'}Pukul : {ITEM.jam}</Text>
             <FlatList data={data} renderItem={__renderItem} />
         </SafeAreaView>
     )

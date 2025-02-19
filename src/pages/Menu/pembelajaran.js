@@ -1,24 +1,28 @@
-import { View, StyleSheet, Dimensions, FlatList, BackHandler } from 'react-native';
+import { View, StyleSheet, Dimensions, FlatList, BackHandler, Text } from 'react-native';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { colors } from '../../utils';
+import { colors, fonts } from '../../utils';
 import { MyHeader } from '../../components';
 import YoutubePlayer from 'react-native-youtube-iframe';
+import axios from 'axios';
+import { apiURL } from '../../utils/localStorage';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
 export default function VideoPembelajaran({ navigation }) {
-  const videoList = useMemo(() => [
-    { id: '1', linkYT: 'EwuOpBNtLW0' },
-    { id: '2', linkYT: '44TzhMoZaXI' },
-    { id: '3', linkYT: 'h-D2YbMroOU' },
-    { id: '4', linkYT: 'tGxEKfbJPoU' }
-  ], []);
+
+  const [videoList, setVideolist] = useState([]);
 
   const [isPlaying, setIsPlaying] = useState(null);
   const playerRefs = useRef({});
 
   useEffect(() => {
+
+    axios.post(apiURL + 'youtube').then(res => {
+      console.log(res.data);
+      setVideolist(res.data)
+    })
+
     const backAction = () => {
       if (isPlaying) {
         setIsPlaying(null);
@@ -28,7 +32,7 @@ export default function VideoPembelajaran({ navigation }) {
     };
 
     const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
-    
+
     return () => backHandler.remove();
   }, [isPlaying]);
 
@@ -49,17 +53,20 @@ export default function VideoPembelajaran({ navigation }) {
   };
 
   const renderItem = ({ item }) => (
-    <View style={[styles.videoWrapper, isPlaying === item.linkYT && styles.videoFullScreen]}>
+    <View style={[styles.videoWrapper, isPlaying === item.link_youtube && styles.videoFullScreen]}>
       <YoutubePlayer
-        ref={ref => (playerRefs.current[item.linkYT] = ref)}
-        height={isPlaying === item.linkYT ? screenHeight : 200}
-        width={isPlaying === item.linkYT ? screenWidth : screenWidth - 40} // Mengurangi margin horizontal
-        play={isPlaying === item.linkYT}
-        videoId={item.linkYT}
+        ref={ref => (playerRefs.current[item.link_youtube] = ref)}
+        height={isPlaying === item.link_youtube ? screenHeight : 200}
+        width={isPlaying === item.link_youtube ? screenWidth : screenWidth - 40} // Mengurangi margin horizontal
+        play={isPlaying === item.link_youtube}
+        videoId={item.link_youtube}
         webViewProps={{ androidLayerType: 'hardware' }}
         webViewStyle={{ backgroundColor: 'black' }}
-        onChangeState={state => handleVideoStateChange(state, item.linkYT)}
+        onChangeState={state => handleVideoStateChange(state, item.link_youtube)}
       />
+      <Text style={{
+        ...fonts.headline5
+      }}>{item.judul}</Text>
     </View>
   );
 
@@ -69,7 +76,7 @@ export default function VideoPembelajaran({ navigation }) {
 
       {isPlaying ? (
         <View style={styles.fullScreenVideoContainer}>
-          {renderItem({ item: videoList.find(video => video.linkYT === isPlaying) })}
+          {renderItem({ item: videoList.find(video => video.link_youtube === isPlaying) })}
         </View>
       ) : (
         <FlatList
@@ -77,9 +84,9 @@ export default function VideoPembelajaran({ navigation }) {
           keyExtractor={item => item.id}
           renderItem={renderItem}
           contentContainerStyle={styles.listContainer}
-          removeClippedSubviews={false} 
-          legacyImplementation={true}  
-          windowSize={10}  
+          removeClippedSubviews={false}
+          legacyImplementation={true}
+          windowSize={10}
         />
       )}
     </View>

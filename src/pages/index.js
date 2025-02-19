@@ -18,6 +18,7 @@ import IsiMateri from './Menu/isimateri';
 import VideoPembelajaran from './Menu/pembelajaran';
 import Evaluasi from './Menu/evaluasi';
 import EvaluasiAdd from './Menu/evaluasiadd';
+import Jawaban from './Menu/Jawaban';
 
 
 
@@ -40,16 +41,17 @@ export {
   TambahBuktiPengeluaran,
   HasilBuatPenawaran,
   Materi,
-IsiMateri,
-VideoPembelajaran,
-Evaluasi,
-EvaluasiAdd,
+  IsiMateri,
+  VideoPembelajaran,
+  Evaluasi,
+  EvaluasiAdd,
+  Jawaban
 
 
 
 
 
 
-  
+
 
 };
